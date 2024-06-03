@@ -20,7 +20,7 @@ export class CandidateController {
   }
 
   @Patch(':candidateId/unions/:unionId')
-  async addUserToGroup(
+  async addCandidateToGroup(
     @Param('candidateId') candidateId: string,
     @Param('unionId') unionId: string,
   ): Promise<Candidate> {
