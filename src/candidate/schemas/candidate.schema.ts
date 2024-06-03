@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose from 'mongoose';
+import { Union } from 'src/union/schemas/union.schema';
 
 @Schema({ timestamps: true })
 export class Candidate {
@@ -10,6 +12,9 @@ export class Candidate {
 
   @Prop({ required: true })
   symbolUrl: URL;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Union' })
+  unions: Union[];
 }
 
 export const CandidateSchema = SchemaFactory.createForClass(Candidate);

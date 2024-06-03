@@ -13,7 +13,7 @@ export class UnionController {
   }
 
   @Post()
-  async createUnion(@Body() union: CreateUnionDto): Promise<Union> {
+  async createUnion(@Body() union): Promise<Union> {
     return await this.unionService.create(union);
   }
 }
