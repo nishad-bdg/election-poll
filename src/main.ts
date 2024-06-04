@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import cors from 'cors-ts';
 import mongoose from 'mongoose';
 
 async function bootstrap() {
@@ -8,12 +7,13 @@ async function bootstrap() {
     cors: true,
   });
 
-  app.use(
-    cors({
-      origin: 'https://up-election.vercel.app/',
-      optionsSuccessStatus: 200,
-    }),
-  );
+  // app.use(
+  //   cors({
+  //     origin: 'https://up-election.vercel.app/',
+  //     optionsSuccessStatus: 200,
+  //   }),
+  // );
+  app.enableCors();
   mongoose.set('strictPopulate', false);
   await app.listen(3001);
 }
