@@ -6,10 +6,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   mongoose.set('strictPopulate', false);
   app.enableCors({
-    origin: 'https://up-election.vercel.app', // Your Next.js app URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: ['content-type'],
+    origin: 'https://up-election.vercel.app',
     credentials: true,
-    allowedHeaders: 'Content-Type, Authorization',
   });
   await app.listen(3001);
 }
