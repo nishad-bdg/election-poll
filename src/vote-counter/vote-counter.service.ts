@@ -26,13 +26,16 @@ export class VoteCounterService {
       candidate: createVoteCounterDto.candidateId,
     });
 
-    await this.voteCenterModel.findByIdAndUpdate(
-      createVoteCounterDto.voteCenterId,
-      {
-        $addToSet: { voteCounters: voteCounter },
-      },
-    );
-    return voteCounter.save();
+    if (voteCounter) {
+      await this.voteCenterModel.findByIdAndUpdate(
+        createVoteCounterDto.voteCenterId,
+        {
+          $addToSet: { voteCounters: voteCounter },
+        },
+      );
+      return voteCounter.save();
+    }
+    throw new Error('Unable save vote center data');
   }
 
   async findAll() {
