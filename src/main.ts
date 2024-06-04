@@ -10,7 +10,7 @@ async function bootstrap() {
 
   app.use(
     cors({
-      origin: '#front-end-url',
+      origin: 'https://up-election.vercel.app/',
       optionsSuccessStatus: 200,
     }),
   );
