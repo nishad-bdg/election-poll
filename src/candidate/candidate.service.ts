@@ -25,8 +25,9 @@ export class CandidateService {
     candidateId: string,
     unionId: string,
   ): Promise<void> {
+    const unionData = await this.unionModel.findById(unionId);
     await this.candidateModel.findByIdAndUpdate(candidateId, {
-      $addToSet: { unions: unionId },
+      $addToSet: { unions: unionData },
     });
     await this.unionModel.findByIdAndUpdate(unionId, {
       $addToSet: { candidates: candidateId },
@@ -34,10 +35,18 @@ export class CandidateService {
   }
 
   async getCandidates(): Promise<Candidate[]> {
-    return this.candidateModel.find().populate('unions').exec();
+    return this.candidateModel
+      .find()
+      .populate('unions')
+      .populate('votecenters')
+      .exec();
   }
 
   async getUnions(): Promise<Union[]> {
-    return this.unionModel.find().populate('candidates').exec();
+    return this.unionModel
+      .find()
+      .populate('candidates')
+      .populate('votecenters')
+      .exec();
   }
 }
