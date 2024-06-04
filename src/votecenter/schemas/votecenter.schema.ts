@@ -8,7 +8,7 @@ export class VoteCenter extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true, default: 0 })
+  @Prop({ required: true })
   totalVotes: number;
 
   @Prop({ type: Types.ObjectId, ref: 'Union' })
@@ -19,3 +19,4 @@ export class VoteCenter extends Document {
 }
 
 export const VoteCenterSchema = SchemaFactory.createForClass(VoteCenter);
+VoteCenterSchema.index({ name: 1, union: 1 }, { unique: true });

@@ -17,12 +17,16 @@ export class VotecenterService {
     const voteCenter = new this.voteCenterModel({
       name: createVotecenterDto.name,
       union: createVotecenterDto.unionId,
+      totalVotes: createVotecenterDto.totalVotes,
     });
 
-    await this.unionModel.findByIdAndUpdate(createVotecenterDto.unionId, {
-      $addToSet: { voteCenters: voteCenter },
-    });
-    return voteCenter.save();
+    if (voteCenter) {
+      await this.unionModel.findByIdAndUpdate(createVotecenterDto.unionId, {
+        $addToSet: { voteCenters: voteCenter },
+      });
+      return voteCenter.save();
+    }
+    throw new Error('unable to create vote center');
   }
 
   async findAll(): Promise<VoteCenter[]> {

@@ -34,4 +34,8 @@ export class VoteCounterService {
     );
     return voteCounter.save();
   }
+
+  async findAll() {
+    return await this.voteCounterModel.find().populate('voteCenter').exec();
+  }
 }

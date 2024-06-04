@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { VotecenterService } from './votecenter.service';
 import { CreateVotecenterDto } from './dto/create-votecenter.dto';
 import { UpdateVotecenterDto } from './dto/update-votecenter.dto';
@@ -10,6 +18,7 @@ export class VotecenterController {
 
   @Post()
   create(@Body() createVotecenterDto: CreateVotecenterDto) {
+    console.info(createVotecenterDto);
     return this.votecenterService.create(createVotecenterDto);
   }
 
@@ -24,7 +33,10 @@ export class VotecenterController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVotecenterDto: UpdateVotecenterDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateVotecenterDto: UpdateVotecenterDto,
+  ) {
     return this.votecenterService.update(+id, updateVotecenterDto);
   }
 
