@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import mongoose from 'mongoose';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -14,6 +15,7 @@ async function bootstrap() {
   //   }),
   // );
   app.enableCors();
+  app.useGlobalPipes(new ValidationPipe());
   mongoose.set('strictPopulate', false);
   await app.listen(3001);
 }

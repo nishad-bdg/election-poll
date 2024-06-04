@@ -16,3 +16,5 @@ export class VoteCounter extends Document {
 }
 
 export const VoteCounterSchema = SchemaFactory.createForClass(VoteCounter);
+
+VoteCounterSchema.index({ candidate: 1, voteCenter: 1 }, { unique: true });
