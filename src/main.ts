@@ -3,12 +3,15 @@ import { AppModule } from './app.module';
 import mongoose from 'mongoose';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bodyParser: true,
+  });
   mongoose.set('strictPopulate', false);
   app.enableCors({
-    allowedHeaders: ['content-type'],
-    origin: 'https://up-election.vercel.app',
-    credentials: true,
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
   await app.listen(3001);
 }
