@@ -1,19 +1,14 @@
+// src/schemas/candidate.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
-import { Union } from 'src/union/schemas/union.schema';
+import { Document, Types } from 'mongoose';
+import { Union } from './union.schema';
 
-@Schema({ timestamps: true })
-export class Candidate {
-  @Prop({ unique: [true, 'Duplicate name entered'] })
+@Schema()
+export class Candidate extends Document {
+  @Prop({ required: true })
   name: string;
 
-  @Prop({ unique: [true, 'Duplicate symbol entered'] })
-  symbol: string;
-
-  @Prop({ required: true })
-  symbolUrl: URL;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Union' })
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Union' }] })
   unions: Union[];
 }
 

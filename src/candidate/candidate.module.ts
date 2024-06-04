@@ -2,13 +2,21 @@ import { Module } from '@nestjs/common';
 import { CandidateService } from './candidate.service';
 import { CandidateController } from './candidate.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CandidateSchema } from './schemas/candidate.schema';
-import { UnionModule } from 'src/union/union.module';
+import { Candidate, CandidateSchema } from './schemas/candidate.schema';
+import { Union, UnionSchema } from './schemas/union.schema';
 
 @Module({
   imports: [
-    UnionModule,
-    MongooseModule.forFeature([{ name: 'Candidate', schema: CandidateSchema }]),
+    MongooseModule.forFeature([
+      {
+        name: Candidate.name,
+        schema: CandidateSchema,
+      },
+      {
+        name: Union.name,
+        schema: UnionSchema,
+      },
+    ]),
   ],
   controllers: [CandidateController],
   providers: [CandidateService],

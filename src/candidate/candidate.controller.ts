@@ -1,29 +1,35 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CandidateService } from './candidate.service';
-import { Candidate } from './schemas/candidate.schema';
-import { CreateCandidateDto } from './dto/create-candidate.dto';
 
 @Controller('candidate')
 export class CandidateController {
   constructor(private readonly candidateService: CandidateService) {}
 
-  @Post()
-  async createCandidate(
-    @Body() candidate: CreateCandidateDto,
-  ): Promise<Candidate> {
-    return await this.candidateService.create(candidate);
+  @Post('create')
+  async createCandidate(@Body('name') name: string) {
+    return this.candidateService.createCandidate(name);
+  }
+
+  @Post('union/create')
+  async createUnion(@Body('name') name: string) {
+    return this.candidateService.createUnion(name);
+  }
+
+  @Post(':candidateId/union/:unionId')
+  async addCandidateToUnion(
+    @Param('candidateId') candidateId: string,
+    @Param('unionId') unionId: string,
+  ) {
+    return this.candidateService.addCandidateToUnion(candidateId, unionId);
   }
 
   @Get()
-  async findAllCandidates(): Promise<Candidate[]> {
-    return await this.candidateService.findAll();
+  async getCandidates() {
+    return this.candidateService.getCandidates();
   }
 
-  @Patch(':candidateId/unions/:unionId')
-  async addCandidateToGroup(
-    @Param('candidateId') candidateId: string,
-    @Param('unionId') unionId: string,
-  ): Promise<Candidate> {
-    return this.candidateService.addCandidateToUnion(candidateId, unionId);
+  @Get('unions')
+  async getUnions() {
+    return this.candidateService.getUnions();
   }
 }

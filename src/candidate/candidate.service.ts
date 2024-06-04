@@ -1,36 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCandidateDto } from './dto/create-candidate.dto';
-import { InjectModel } from '@nestjs/mongoose';
 import { Candidate } from './schemas/candidate.schema';
-import mongoose from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Union } from './schemas/union.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class CandidateService {
   constructor(
-    @InjectModel(Candidate.name)
-    private readonly candidateModel: mongoose.Model<Candidate>,
+    @InjectModel(Candidate.name) private candidateModel: Model<Candidate>,
+    @InjectModel(Union.name) private unionModel: Model<Union>,
   ) {}
 
-  async create(candidate: CreateCandidateDto): Promise<Candidate> {
-    const res = await this.candidateModel.create(candidate);
-    return res;
+  async createCandidate(name: string): Promise<Candidate> {
+    const createdCandidate = new this.candidateModel({ name });
+    return createdCandidate.save();
   }
 
-  async findAll(): Promise<Candidate[]> {
-    return await this.candidateModel.find().populate('unions').exec();
+  async createUnion(name: string): Promise<Union> {
+    const createdUnion = new this.unionModel({ name });
+    return createdUnion.save();
   }
 
   async addCandidateToUnion(
     candidateId: string,
     unionId: string,
-  ): Promise<Candidate> {
-    return this.candidateModel
-      .findByIdAndUpdate(
-        candidateId,
-        { $addToSet: { unions: unionId } },
-        { new: true },
-      )
-      .populate('unions')
-      .exec();
+  ): Promise<void> {
+    await this.candidateModel.findByIdAndUpdate(candidateId, {
+      $addToSet: { unions: unionId },
+    });
+    await this.unionModel.findByIdAndUpdate(unionId, {
+      $addToSet: { candidates: candidateId },
+    });
+  }
+
+  async getCandidates(): Promise<Candidate[]> {
+    return this.candidateModel.find().populate('unions').exec();
+  }
+
+  async getUnions(): Promise<Union[]> {
+    return this.unionModel.find().populate('candidates').exec();
   }
 }
