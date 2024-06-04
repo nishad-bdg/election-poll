@@ -25,8 +25,8 @@ export class VotecenterService {
     return voteCenter.save();
   }
 
-  findAll() {
-    return `This action returns all votecenter`;
+  async findAll(): Promise<VoteCenter[]> {
+    return await this.voteCenterModel.find().populate('voteCounters').exec();
   }
 
   findOne(id: number) {

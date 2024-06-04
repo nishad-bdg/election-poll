@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { VotecenterService } from './votecenter.service';
 import { CreateVotecenterDto } from './dto/create-votecenter.dto';
 import { UpdateVotecenterDto } from './dto/update-votecenter.dto';
+import { VoteCenter } from './schemas/votecenter.schema';
 
 @Controller('votecenter')
 export class VotecenterController {
@@ -13,8 +14,8 @@ export class VotecenterController {
   }
 
   @Get()
-  findAll() {
-    return this.votecenterService.findAll();
+  async findAll(): Promise<VoteCenter[]> {
+    return await this.votecenterService.findAll();
   }
 
   @Get(':id')
