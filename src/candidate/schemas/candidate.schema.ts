@@ -8,6 +8,9 @@ export class Candidate extends Document {
   @Prop({ required: true })
   name: string;
 
+  @Prop({ required: true })
+  symbolUrl: URL;
+
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Union' }] })
   unions: Union[];
 }

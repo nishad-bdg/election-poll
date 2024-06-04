@@ -6,7 +6,7 @@ import { VoteCenter } from 'src/votecenter/schemas/votecenter.schema';
 
 @Schema()
 export class Union extends Document {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   name: string;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Candidate' }] })

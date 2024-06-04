@@ -3,6 +3,7 @@ import { Candidate } from './schemas/candidate.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Union } from './schemas/union.schema';
 import { Model } from 'mongoose';
+import { CreateCandidateDto } from './dto/create-candidate.dto';
 
 @Injectable()
 export class CandidateService {
@@ -11,8 +12,8 @@ export class CandidateService {
     @InjectModel(Union.name) private unionModel: Model<Union>,
   ) {}
 
-  async createCandidate(name: string): Promise<Candidate> {
-    const createdCandidate = new this.candidateModel({ name });
+  async createCandidate(candidate: CreateCandidateDto): Promise<Candidate> {
+    const createdCandidate = new this.candidateModel(candidate);
     return createdCandidate.save();
   }
 

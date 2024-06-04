@@ -1,13 +1,15 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CandidateService } from './candidate.service';
+import { CreateCandidateDto } from './dto/create-candidate.dto';
 
 @Controller('candidate')
 export class CandidateController {
   constructor(private readonly candidateService: CandidateService) {}
 
   @Post('create')
-  async createCandidate(@Body('name') name: string) {
-    return this.candidateService.createCandidate(name);
+  async createCandidate(@Body() candidate: CreateCandidateDto) {
+    console.info(candidate);
+    return this.candidateService.createCandidate(candidate);
   }
 
   @Post('union/create')
