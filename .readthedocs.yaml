@@ -14,6 +14,7 @@ install:
   - npm install               # Install project dependencies
 
 # Define the build commands for your documentation
+# The commands are now grouped under `build`
 build:
   commands:
     - npm run build            # Build your Next.js project
