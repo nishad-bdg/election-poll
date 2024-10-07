@@ -10,12 +10,14 @@ build:
   tools:
     nodejs: "20"  # Specify the Node.js version for your Next.js project
 
-# Optional: Build your docs using a specific command
-# You might need to add a build command for your documentation
-# If you are using a tool like Docusaurus or another static site generator, specify the command
-documentation:
-  build: npm run build-docs  # Example command to build documentation
-  output: out/docs            # The output directory for the generated documentation
+  # Commands to run for building and serving your documentation
+  command: |
+    npm install      # Install Node.js dependencies
+    npm run build-docs  # Build your documentation
 
-# Declare Node.js dependencies if your documentation requires them
-# You will use the `npm install` command, which is generally implicit during the build process
+# Specify additional environment variables if needed
+# environment:
+#   NODE_ENV: development
+
+# Optionally specify the output directory if necessary
+# output: out/docs  # Define the output directory for the generated documentation
