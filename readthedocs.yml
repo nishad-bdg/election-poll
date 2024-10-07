@@ -1,0 +1,23 @@
+# Read the Docs configuration file for a Next.js project
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+# Set the OS and Node.js version needed for your Next.js project
+build:
+  os: ubuntu-22.04
+  tools:
+    nodejs: "20"  # Specify the Node.js version for your Next.js project
+
+# Optional: Build your docs using a specific command
+# You might need to add a build command for your documentation
+# If you are using a tool like Docusaurus or another static site generator, specify the command
+# documentation:
+#   build: npm run build-docs  # Example command to build documentation
+#   output: out/docs            # The output directory for the generated documentation
+
+# Optional: Declare Node.js dependencies if your documentation requires them
+nodejs:
+  install:
+    - package: package.json  # For Node.js dependencies, if needed
