@@ -4,23 +4,20 @@
 # Required
 version: 2
 
-# Set the OS and Node.js version you might need
+# Specify the tools you need
 build:
-  os: ubuntu-22.04
   tools:
-    nodejs: "20"
+    nodejs: "20"  # Specify the Node.js version you want to use
 
-# Define the commands for building your Next.js project and documentation
-# Use "install" instead of "commands"
+# Install dependencies
 install:
   - npm install               # Install project dependencies
 
 # Define the build commands for your documentation
-# This section is used for building the documentation
 build:
   commands:
-    - npm run build             # Build your Next.js project
-    - npm run docs              # Command to build your documentation
+    - npm run build            # Build your Next.js project
+    - npm run docs             # Command to build your documentation
 
 # Optional: Define formats for additional documentation outputs (e.g., PDF)
 # formats:
