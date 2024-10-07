@@ -1,29 +1,20 @@
-# Read the Docs configuration file for a Next.js project
+# Read the Docs configuration file for a Node.js project
 # See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
 
 # Required
 version: 2
 
-# Specify the tools you need
+# Specify the Node.js version you want to use
 build:
   tools:
-    nodejs: "20"  # Specify the Node.js version you want to use
+    nodejs: "20"  # Specify the Node.js version
 
 # Install dependencies
 install:
   - npm install               # Install project dependencies
 
 # Define the build commands for your documentation
-# The commands are now grouped under `build`
 build:
   commands:
     - npm run build            # Build your Next.js project
-    - npm run docs             # Command to build your documentation
-
-# Optional: Define formats for additional documentation outputs (e.g., PDF)
-# formats:
-#   - pdf
-#   - epub
-
-# Uncomment to fail on warnings during the build process
-# fail_on_warning: true
+    - npm run docs             # Command to build your documentation (ensure this exists in package.json)
